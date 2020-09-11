@@ -12,10 +12,10 @@ elem.append(label, inputToEnter, button, inputForWithdrawal);
 label.textContent = "введите радиус круга для вычисления площади";
 button.textContent = "вычислить площадь";
 inputForWithdrawal.disabled = true;
+inputToEnter.type = "number";
 button.addEventListener("click", areaCalculation)
 function areaCalculation(event) {
     inputForWithdrawal.value = (inputToEnter.value ** 2 * 3.1415);
-
 }
 
 ///////////////////
@@ -72,7 +72,7 @@ array.map((obj) => {
         document.createElement("p").textContent = obj.description,
         createButton("delete", (event) => { event.target.parentNode.remove() }))
 
-    
+
 });
 
 
