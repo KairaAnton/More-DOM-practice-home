@@ -1,10 +1,29 @@
 "use strict";
 
+const elem = document.getElementById("elem");
+
+const inputToEnter = document.createElement("input");
+const inputForWithdrawal =document.createElement("input");
+const label = document.createElement("label");
+const button = document.createElement("button");
+
+
+elem.append(label);
+elem.append(inputToEnter);
+elem.append(button);
+elem.append(inputForWithdrawal);
+label.textContent= "введите радиус круга для вычисления площади";
+button.textContent="вычислить площадь";
+inputForWithdrawal.disabled;
+button.addEventListener("click",areaCalculation)
+function areaCalculation(event){
+    inputForWithdrawal.value = (inputToEnter.value**2*3.1415);
+
+}
 
 ///////////////////
 
 
-const elem = document.getElementById("elem");
 
 function classAdd(elem) {
     elem.classList.add("www");
@@ -31,26 +50,30 @@ function classContains(elem) {
 const ul = document.createElement("ul");
 elem.append(ul);
 
-const array = [{ id: "1", title: "1", description: "1" }, { id: "2", title: "2", description: "2" }, { id: "3", title: "3", description: "3" }, { id: "4", title: "4", description: "4" }];
+const array = [{ id: "1", title: "заголовок", description: "Первый" },
+{ id: "2", title: "заголовок", description: "Второй" },
+{ id: "3", title: "заголовок", description: "Третий" },
+{ id: "4", title: "заголовок", description: "Четвертый" }];
 
 function createLi({ id, title, description }) {
 
     const li = createListItem({
-        value: description, children: [createButton("delete", (event) => {
+        title, description, children: [createButton("delete", (event) => {
             event.target.parentNode.remove();
         })]
     })
     ul.appendChild(li);
-    li.title = title;
     li.id = id;
 
 
     return li;
 }
 
-function createListItem({ value, children }) {
+function createListItem({ title, description, children }) {
     const li = document.createElement("li");
-    li.append(document.createTextNode(value), ...children);
+    const h2 = document.createElement("h2");
+    const p = document.createElement("p");
+    li.append(h2.textContent = title, p.textContent = description, ...children);
 
     return li;
 }
@@ -70,43 +93,12 @@ function backlight(event) {
 
 ul.addEventListener("click", backlight);
 
-console.dir(createLi({ id: "1", title: "1", description: "первый" }));
-
-console.dir(createLi({ id: "2", title: "2", description: "второй" }));
-
-console.dir(createLi({ id: "3", title: "3", description: "третий" }));
 
 ////////////////////////////
 
 class Elem {
     constructor(selector) {
         this._selector = document.querySelector(selector);
-    }
-
-    set html(string) {
-        return this._selector;
-    }
-    set append(string) {
-        return this._selector;
-    }
-    set prepend(string) {
-        return this._selector;
-    }
-    set attr(attribute) {
-        return this._selector;
-    }
-
-    get html() {
-        return this.html();
-    }
-    get append() {
-        return this.append();
-    }
-    get prepend() {
-        return this.prepend();
-    }
-    get attr() {
-        return attr();
     }
 
     html(string) {
@@ -131,3 +123,5 @@ class Elem {
     }
 
 };
+
+array.map((item) => { createLi(item); });

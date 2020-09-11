@@ -1,3 +1,7 @@
 .classLi{
     background-color: red;
 }
+#elem{
+    display: flex;
+    flex-direction: column;
+}
