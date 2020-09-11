@@ -3,21 +3,18 @@
 const elem = document.getElementById("elem");
 
 const inputToEnter = document.createElement("input");
-const inputForWithdrawal =document.createElement("input");
+const inputForWithdrawal = document.createElement("input");
 const label = document.createElement("label");
 const button = document.createElement("button");
 
 
-elem.append(label);
-elem.append(inputToEnter);
-elem.append(button);
-elem.append(inputForWithdrawal);
-label.textContent= "введите радиус круга для вычисления площади";
-button.textContent="вычислить площадь";
-inputForWithdrawal.disabled;
-button.addEventListener("click",areaCalculation)
-function areaCalculation(event){
-    inputForWithdrawal.value = (inputToEnter.value**2*3.1415);
+elem.append(label, inputToEnter, button, inputForWithdrawal);
+label.textContent = "введите радиус круга для вычисления площади";
+button.textContent = "вычислить площадь";
+inputForWithdrawal.disabled = true;
+button.addEventListener("click", areaCalculation)
+function areaCalculation(event) {
+    inputForWithdrawal.value = (inputToEnter.value ** 2 * 3.1415);
 
 }
 
@@ -38,11 +35,7 @@ function isContains(elem) {
 }
 
 function classContains(elem) {
-    if (elem.classList.contains("www")) {
-        elem.classList.remove("www");
-    } else {
-        elem.classList.add("www");
-    }
+    elem.classList.toggle("www")
 }
 
 //////////////////////////////////
@@ -55,28 +48,6 @@ const array = [{ id: "1", title: "заголовок", description: "Первы�
 { id: "3", title: "заголовок", description: "Третий" },
 { id: "4", title: "заголовок", description: "Четвертый" }];
 
-function createLi({ id, title, description }) {
-
-    const li = createListItem({
-        title, description, children: [createButton("delete", (event) => {
-            event.target.parentNode.remove();
-        })]
-    })
-    ul.appendChild(li);
-    li.id = id;
-
-
-    return li;
-}
-
-function createListItem({ title, description, children }) {
-    const li = document.createElement("li");
-    const h2 = document.createElement("h2");
-    const p = document.createElement("p");
-    li.append(h2.textContent = title, p.textContent = description, ...children);
-
-    return li;
-}
 
 function createButton(text, onClick = () => { }) {
     const button = document.createElement("button");
@@ -88,40 +59,50 @@ function createButton(text, onClick = () => { }) {
 }
 
 function backlight(event) {
-    event.target.classList.add("classLi");
+    event.target.classList.toggle("classLi");
 }
 
 ul.addEventListener("click", backlight);
+
+array.map((obj) => {
+    const li = document.createElement("li");
+    ul.appendChild(li);
+    li.id = obj.id;
+    li.append(document.createElement("h2").textContent = obj.title,
+        document.createElement("p").textContent = obj.description,
+        createButton("delete", (event) => { event.target.parentNode.remove() }))
+
+    
+});
 
 
 ////////////////////////////
 
 class Elem {
     constructor(selector) {
-        this._selector = document.querySelector(selector);
+        this._element = document.querySelector(selector);
     }
 
     html(string) {
-        this._selector.textContent = string;
+        this._element.textContent = string;
         return this;
     };
 
     append(string) {
-        this._selector.append(string);
+        this._element.append(string);
         return this;
     };
 
     prepend(string) {
-        this._selector.prepend(string)
+        this._element.prepend(string)
         return this;
     };
 
     attr(attribute, attrValue) {
-        this._selector.setAttribute(attribute, attrValue);
+        this._element.setAttribute(attribute, attrValue);
         return this;
 
     }
 
 };
 
-array.map((item) => { createLi(item); });
